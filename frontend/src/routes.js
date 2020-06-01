@@ -1,40 +1,18 @@
-import React from 'react';
-import { Switch } from 'react-router-dom';
+import React from "react";
+import { Switch, Route } from "react-router-dom";
 
-import RouteHandler from './components/RouteHandler';
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import { ServiceList, ServiceForm } from "./pages/Service";
 
-import Home from './pages/Home';
-import About from './pages/About';
-import NotFound from './pages/NotFound';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
-import AdPage from './pages/AdPage';
-import AddAd from './pages/AddAd';
-
-export default () => {
-    return (
-        <Switch>
-            <RouteHandler exact path="/">
-                <Home />
-            </RouteHandler>
-            <RouteHandler exact path="/about">
-                <About />
-            </RouteHandler>
-            <RouteHandler exact path="/signin">
-                <SignIn />
-            </RouteHandler>
-            <RouteHandler exact path="/signup">
-                <SignUp />
-            </RouteHandler>
-            <RouteHandler exact path="/ad/:id">
-                <AdPage />
-            </RouteHandler>
-            <RouteHandler private exact path="/post-an-ad">
-                <AddAd />
-            </RouteHandler>
-            <RouteHandler>
-                <NotFound />
-            </RouteHandler>
-        </Switch>
-    );
+export default function Routes() {
+  return (
+    <Switch>
+      <Route path="/" exact component={SignIn} />
+      <Route path="/signup" exact component={SignUp} />
+      <Route path="/services" component={ServiceList} isPrivate />
+      <Route path="/service/new" component={ServiceForm} isPrivate />
+      <Route path="/service/edit/:id" component={ServiceForm} isPrivate />
+    </Switch>
+  );
 }

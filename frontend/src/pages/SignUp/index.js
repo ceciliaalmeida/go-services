@@ -1,116 +1,82 @@
-import React, { useState, useEffect } from "react";
-import { PageArea } from "./styled";
-import useApi from "../../services/api";
-import { doLogin } from "../../services/AuthHandler";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { FiArrowLeft } from "react-icons/fi";
 
-import {
-  PageContainer,
-  PageTitle,
-  ErrorMessage,
-} from "../../components/MainComponents";
+import api from "../../services/api";
 
-const Page = () => {
-  const api = useApi();
+import { Container, Content } from "./styled";
 
+import logoImg from "../../assets/logo.svg";
+
+export default function SignUp() {
   const [name, setName] = useState("");
-  const [stateLoc, setStateLoc] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
+  const [city, setCity] = useState("");
+  const [uf, setUf] = useState("");
 
-  const [stateList, setStateList] = useState([]);
+  const history = useHistory();
 
-  const [disabled, setDisabled] = useState(false);
-  const [error, setError] = useState("");
-
-  const handleSubmit = async (e) => {
+  async function handleRegister(e) {
     e.preventDefault();
-    setDisabled(true);
-    setError("");
 
-    if (password !== confirmPassword) {
-      setError("Senhas não batem");
-      setDisabled(false);
-      return;
+    const data = {
+      name,
+      email,
+      whatsapp,
+      city,
+      uf,
+    };
+
+    try {
+      const response = await api.post("ongs", data);
+
+      alert(`Seu ID de acesso: ${response.data.id}`);
+
+      history.push("/");
+    } catch (err) {
+      alert("Erro no cadastro, tente novamente.");
     }
-
-    const json = await api.register(name, email, password, stateLoc);
-
-    if (json.error) {
-      setError(json.error);
-    } else {
-      doLogin(json.token);
-      window.location.href = "/";
-    }
-
-    setDisabled(false);
-  };
+  }
 
   return (
-    <PageContainer>
-      <PageTitle>Crie a sua conta. É grátis!</PageTitle>
-      <PageArea>
-        {error && <ErrorMessage>{error}</ErrorMessage>}
+    <>
+      <Container>
+        <img src={logoImg} alt="Finances" />
+        <Content>
+          <h1>Cadastro</h1>
 
-        <form onSubmit={handleSubmit}>
-          <label className="area">
-            <div className="area--title">Nome Completo</div>
-            <div className="area--input">
-              <input
-                type="text"
-                disabled={disabled}
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </div>
-          </label>
-          <label className="area">
-            <div className="area--title">E-mail</div>
-            <div className="area--input">
-              <input
-                type="email"
-                disabled={disabled}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-          </label>
-          <label className="area">
-            <div className="area--title">Senha</div>
-            <div className="area--input">
-              <input
-                type="password"
-                disabled={disabled}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-          </label>
-          <label className="area">
-            <div className="area--title">Confirmar Senha</div>
-            <div className="area--input">
-              <input
-                type="password"
-                disabled={disabled}
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
-            </div>
-          </label>
-          <label className="area">
-            <div className="area--title"></div>
-            <div className="area--input">
-              <button>Fazer Cadastro</button>
-            </div>
-          </label>
-        </form>
-      </PageArea>
-    </PageContainer>
+          <form onSubmit={handleRegister}>
+            <input
+              placeholder="Nome Completo"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+
+            <input
+              type="email"
+              placeholder="E-mail"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+
+            <input
+              placeholder="Telefone"
+              value={whatsapp}
+              onChange={(e) => setWhatsapp(e.target.value)}
+            />
+            
+            <button className="button" type="submit">
+              Cadastrar
+            </button>
+
+            <Link className="back-link" to="/">
+            <FiArrowLeft syze={16} color="#5636d3" />
+            Não tenho cadastro
+          </Link>
+          </form>
+        </Content>
+      </Container>
+    </>
   );
-};
-
-export default Page;
+}

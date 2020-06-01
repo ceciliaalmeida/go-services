@@ -1,35 +1,24 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import React from "react";
+import { ToastContainer } from "react-toastify";
+import { PersistGate } from "redux-persist/integration/react";
+import { Provider } from "react-redux";
+import { Router, BrowserRouter } from "react-router-dom";
 
-import './App.css';
+import Routes from "./routes";
+import history from "./services/history";
 
-import { Template } from './components/MainComponents';
-import Header from './components/partials/Header';
+import GlobalStyle from "./styles/global";
 
-import Routes from './Routes';
-
-const Page = (props) => {
+function App() {
   return (
     <BrowserRouter>
-      <Template>
-        <Header />
+      <Router history={history}>
         <Routes />
-      </Template>
+        <GlobalStyle />
+        <ToastContainer autoClose={4000} toastClassName="foo" />
+      </Router>
     </BrowserRouter>
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user:state.user
-  };
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Page);
+export default App;

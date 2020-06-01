@@ -1,79 +1,41 @@
-import React, { useState } from 'react';
-import { PageArea } from './styled';
-import useApi from '../../services/api';
-import { doLogin } from '../../services/AuthHandler';
+import React from "react";
+import { useSelector } from "react-redux";
+import { Form, Input } from "@rocketseat/unform";
+import * as Yup from "yup";
 
-import { PageContainer, PageTitle, ErrorMessage } from '../../components/MainComponents';
+import logo from "../../assets/logo.svg";
 
-const Page = () => {
-    const api = useApi();
+import Spinner from "../../components/Spinner";
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [disabled, setDisabled] = useState(false);
-    const [error, setError] = useState('');
+const schema = Yup.object().shape({
+  email: Yup.string()
+    .email("Digite um e-mail válido")
+    .required("O e-mail é obrigatório"),
+  password: Yup.string().required("A senha é obrigatória")
+});
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setDisabled(true);
-        setError('');
+export default function SingIn() {
+  const loading = useSelector(state => state.auth.loading);
 
-        const json = await api.login(email, password);
+  function handleSubmit({ email, password }) {
+    
+  }
 
-        if(json.error) {
-            setError(json.error);
-        } else {
-            doLogin(json.token);
-            window.location.href = '/';
-        }
+  return (
+    <>
+      <img src={logo} alt="GoBarber" />
 
-        setDisabled(false);
-    }
+      <Form schema={schema} onSubmit={handleSubmit}>
+        <label htmlFor="email">SEU E-MAIL</label>
+        <Input name="email" type="email" placeholder="example@email.com" />
 
-    return (
-        <PageContainer>
-            <PageTitle>Acesse a sua conta</PageTitle>
-            <PageArea>
-                {error &&
-                    <ErrorMessage>{error}</ErrorMessage>
-                }
+        <label htmlFor="password">SUA SENHA</label>
+        <Input name="password" type="password" placeholder="**********" />
 
-                <form onSubmit={handleSubmit}>
-                    <label className="area">
-                        <div className="area--title">E-mail</div>
-                        <div className="area--input">
-                            <input
-                                type="email"
-                                disabled={disabled}
-                                value={email}
-                                onChange={e=>setEmail(e.target.value)}
-                                required
-                            />
-                        </div>
-                    </label>
-                    <label className="area">
-                        <div className="area--title">Senha</div>
-                        <div className="area--input">
-                            <input
-                                type="password"
-                                disabled={disabled}
-                                value={password}
-                                onChange={e=>setPassword(e.target.value)}
-                                required
-                            />
-                        </div>
-                    </label>
-
-                    <label className="area">
-                        <div className="area--title"></div>
-                        <div className="area--input">
-                            <button disabled={disabled}>Fazer Login</button>
-                        </div>
-                    </label>
-                </form>
-            </PageArea>
-        </PageContainer>
-    );
+        <button type="submit">
+          {loading ? <Spinner /> : "Entrar no sistema"}
+        </button>
+      </Form>
+    </>
+  );
 }
-
-export default Page;
