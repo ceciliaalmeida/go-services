@@ -25,6 +25,10 @@ class Service extends Model {
   images () {
     return this.hasMany('App/Models/Image')
   }
+
+  categories () {
+    return this.hasMany('App/Models/Category')
+  }
 }
 
 module.exports = Property

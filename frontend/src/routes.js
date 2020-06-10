@@ -1,18 +1,18 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 
-import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
-import { ServiceList, ServiceForm } from "./pages/Service";
+import Home from './pages/Home';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import Services from './pages/Services';
 
 export default function Routes() {
   return (
-    <Switch>
-      <Route path="/" exact component={SignIn} />
-      <Route path="/signup" exact component={SignUp} />
-      <Route path="/services" component={ServiceList} isPrivate />
-      <Route path="/service/new" component={ServiceForm} isPrivate />
-      <Route path="/service/edit/:id" component={ServiceForm} isPrivate />
-    </Switch>
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/signin" exact component={SignIn} />
+        <Route path="/signup" component={SignUp} />
+        <Route path="/services" component={Services} />
+      </Switch>
   );
 }

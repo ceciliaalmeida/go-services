@@ -1,41 +1,71 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { Form, Input } from "@rocketseat/unform";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import * as Yup from "yup";
+import { FiArrowLeft } from "react-icons/fi";
 
-import logo from "../../assets/logo.svg";
+import api from "../../services/api";
+import { login } from "../../services/auth";
 
-import Spinner from "../../components/Spinner";
+import signinImg from "../../assets/signin.svg";
+import { Container, Content } from "./styled";
 
 const schema = Yup.object().shape({
   email: Yup.string()
     .email("Digite um e-mail válido")
     .required("O e-mail é obrigatório"),
-  password: Yup.string().required("A senha é obrigatória")
+  password: Yup.string().required("A senha é obrigatória"),
 });
 
 export default function SingIn() {
-  const loading = useSelector(state => state.auth.loading);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const history = useHistory();
 
-  function handleSubmit({ email, password }) {
-    
+  async function handleLogin(e) {
+    e.preventDefault();
+
+    try {
+      const response = await api.post("/sessions", { email, password });
+      login(response.data.token);
+
+      localStorage.setItem("userEmail", response.data.email);
+
+      history.push("/");
+    } catch (err) {
+      alert("Falha no login, tente novamente.");
+    }
   }
 
   return (
     <>
-      <img src={logo} alt="GoBarber" />
+      <Container>
+        <img src={signinImg} alt="GoServices" />
+        <Content>
+          <h1>Entrar</h1>
 
-      <Form schema={schema} onSubmit={handleSubmit}>
-        <label htmlFor="email">SEU E-MAIL</label>
-        <Input name="email" type="email" placeholder="example@email.com" />
+          <form schema={schema} onSubmit={handleLogin}>
+            <input
+              type="email"
+              placeholder="Endereço de e-mail"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Senha"
+              onChange={(e) => setPassword(e.target.value)}
+            />
 
-        <label htmlFor="password">SUA SENHA</label>
-        <Input name="password" type="password" placeholder="**********" />
+            <button className="button" type="submit">
+              Entrar
+            </button>
 
-        <button type="submit">
-          {loading ? <Spinner /> : "Entrar no sistema"}
-        </button>
-      </Form>
+            <Link className="back-link" to="/signup">
+              <FiArrowLeft syze={16} color="#152850" />
+              Não tenho cadastro
+            </Link>
+          </form>
+        </Content>
+      </Container>
     </>
   );
 }

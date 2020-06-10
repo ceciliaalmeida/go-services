@@ -18,6 +18,9 @@ class PropertySchema extends Schema {
       table.decimal('price').notNullable()
       table.decimal('latitude', 9, 6).notNullable()
       table.decimal('longitude', 9, 6).notNullable()
+      table.string('whatsapp').notNullable()
+      table.string('city').notNullable()
+      table.string('uf', 2).notNullable()
       table.timestamps()
     })
   }

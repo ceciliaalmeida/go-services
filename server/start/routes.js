@@ -29,3 +29,5 @@ Route.resource("services", "ServiceController").apiOnly().middleware("auth");
 Route.post("services/:id/images", "ImageController.store").middleware("auth");
 
 Route.get('images/:path', 'ImageController.show')
+
+Route.get('/categories', 'CategoryController.index')

@@ -9,6 +9,9 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    img {
+    width: 40%;
+  }
 `;
 
 export const Content = styled.div`
@@ -18,7 +21,11 @@ export const Content = styled.div`
   background: #FFF;
   border-radius: 4px;
   padding: 30px;
-
+ span {
+  font-size: 14px;
+  font-weight: normal;
+  color: var(--text-color);
+}
   form input {
     width: 100%;
     height: 60px;
@@ -28,14 +35,10 @@ export const Content = styled.div`
     padding: 0 24px;
     margin-top: 8px;
   }
-  form h1 {
-    font-size: 32px;
-    margin-bottom: 32px;
-}
   .button {
     width: 100%;
     height: 60px;
-    background: #5636d3;
+    background: #152850;
     border: 0;
     border-radius: 8px;
     color: #fff;

@@ -6,7 +6,7 @@ import api from "../../services/api";
 
 import { Container, Content } from "./styled";
 
-import logoImg from "../../assets/logo.svg";
+import signupImg from "../../assets/signup.svg";
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -42,38 +42,39 @@ export default function SignUp() {
   return (
     <>
       <Container>
-        <img src={logoImg} alt="Finances" />
+        <img src={signupImg} alt="Finances" />
         <Content>
           <h1>Cadastro</h1>
 
           <form onSubmit={handleRegister}>
+            <span>Escolha um nome de usuário</span>
             <input
-              placeholder="Nome Completo"
+              placeholder="Nome de usuário"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
-
+            <span>Digite seu email</span>
             <input
               type="email"
               placeholder="E-mail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-
+            <span>Digite sua senha</span>
             <input
-              placeholder="Telefone"
+              placeholder="**********"
               value={whatsapp}
               onChange={(e) => setWhatsapp(e.target.value)}
             />
-            
+
             <button className="button" type="submit">
               Cadastrar
             </button>
 
-            <Link className="back-link" to="/">
-            <FiArrowLeft syze={16} color="#5636d3" />
-            Não tenho cadastro
-          </Link>
+            <Link className="back-link" to="/signin">
+              <FiArrowLeft syze={16} color="#152850" />
+              Já tem cadastro? Faça login aqui
+            </Link>
           </form>
         </Content>
       </Container>
