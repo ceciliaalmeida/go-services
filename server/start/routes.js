@@ -24,10 +24,9 @@ Route.post('/users', 'UserController.create')
 
 Route.post('/sessions', 'SessionController.create')
 
-Route.resource("services", "ServiceController").apiOnly().middleware("auth");
+Route.resource("services", "ServiceController");
 
 Route.post("services/:id/images", "ImageController.store").middleware("auth");
 
 Route.get('images/:path', 'ImageController.show')
 
-Route.get('/categories', 'CategoryController.index')

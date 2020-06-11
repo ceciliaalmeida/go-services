@@ -20,11 +20,9 @@ class ServiceController {
    * @param {View} ctx.view
    */
   async index ({ request }) {
-    const { latitude, longitude } = request.all()
 
-    const properties = Property.query()
+    const services = Service.query()
       .with('images')
-      .nearBy(latitude, longitude, 10)
       .fetch()
 
     return services
@@ -38,22 +36,18 @@ class ServiceController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ auth, request, response }) {
-  const { id } = auth.user
+  async store ({ request, response }) {
   const data = request.only([
     'title',
-    'address',
+    'description',
     'price',
-    'longitude',
-    'longitude',
-    'whatsapp',
     'city',
     'uf'
   ])
 
-  const property = await Property.create({ ...data, user_id: id })
+  const service = await Service.create({ ...data })
 
-  return property
+  return service
 }
 
   /**
@@ -66,11 +60,11 @@ class ServiceController {
    * @param {View} ctx.view
    */
   async show ({ params }) {
-    const property = await Property.findOrFail(params.id)
+    const service = await Service.findOrFail(params.id)
 
-    await property.load('images')
+    await service.load('images')
 
-    return property
+    return service
   }
 
   /**
@@ -82,21 +76,21 @@ class ServiceController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
-    const property = await Property.findOrFail(params.id)
+    const service = await Service.findOrFail(params.id)
 
     const data = request.only([
       'title',
-      'address',
-      'latitude',
-      'longitude',
-      'price'
+      'description',
+      'price',
+      'city',
+      'uf',
     ])
 
-    property.merge(data)
+    service.merge(data)
 
-    await property.save()
+    await service.save()
 
-    return property
+    return service
   }
 
   /**
@@ -108,14 +102,14 @@ class ServiceController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, auth, response }) {
-    const property = await Property.findOrFail(params.id)
+    const service = await Service.findOrFail(params.id)
 
-    if (property.user_id !== auth.user.id) {
+    if (service.user_id !== auth.user.id) {
       return response.status(401).send({ error: 'Not authorized' })
     }
 
-    await property.delete()
+    await service.delete()
   }
 }
 
-module.exports = PropertyController
+module.exports = ServiceController

@@ -1,103 +1,81 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  height: 100vh;
-  
-  .content {
-    width: 100%;
-    height: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 20px;
+width: 100%;
+max-width: 1120px;
+height: 100vh;
+margin: 0 auto;
 
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
+display: flex;
+align-items: center;
+justify-content: center;
+  `;
 
-  .content main {
-    flex: 1;
-    max-width: 560px;
+export const Content = styled.div`
+width: 100%;
+padding: 96px;
+background: #f0f0f5;
+box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
+border-radius: 8px;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
+display: flex;
+justify-content: space-between;
+align-items: center;
 
-  .content main h1 {
-    font-size: 54px;
-    color: var(--title-color);
-  }
-
-  .content main p {
-    font-size: 24px;
-    margin-top: 24px;
-    line-height: 38px;
-  }
-
-  .content main a {
-    width: 100%;
-    max-width: 360px;
-    height: 72px;
-    background: var(--primary-color);
-    border-radius: 8px;
-    text-decoration: none;
-
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-
-    margin-top: 40px;
-  }
-
-  .content main a span {
+section {
+  width: 100%;
+  max-width: 380px;
+}
+section img {
     display: block;
-    background: rgba(0, 0, 0, 0.08);
-    width: 72px;
-    height: 72px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s;
-  }
+form {
+  width: 100%;
+  max-width: 450px;
+}
 
-  .content main a span svg {
-    color: #fff;
-    width: 20px;
-    height: 20px;
-  }
+form input {
+  width: 100%;
+  height: 60px;
+  color: #333;
+  border: 1px solid #dcdce6;
+  border-radius: 8px;
+  padding: 0 24px;
+}
+form textarea {
+  width: 100%;
+  resize: vertical;
+  min-height: 140px;
+  color: #333;
+  border: 1px solid #dcdce6;
+  border-radius: 8px;
+  padding: 16px 24px;
+  line-height: 24px;
+}
 
-  .content main a strong {
-    flex: 1;
+form button {
+  width: 100%;
+    height: 60px;
+    background: var(--primary-color);
+    border: 0;
+    border-radius: 8px;
+    color: #FFF;
+    font-weight: 700;
+    margin-top: 16px;
+    display: inline-block;
     text-align: center;
-    color: #fff;
-  }
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 60px;
+    transition: filter 0.2s;
+}
 
-  .content main a:hover {
-    filter: brightness(90%);
-  }
+form button:hover {
+  filter: brightness(90%);
+}
 
-  @media (max-width: 900px) {
-    .content {
-      align-items: center;
-      text-align: center;
-    }
-
-    .content header {
-      margin: 48px auto 0;
-    }
-
-    .content main {
-      align-items: center;
-    }
-
-    .content main h1 {
-      font-size: 42px;
-    }
-
-    .content main p {
-      font-size: 24px;
-    }
-  }
 `;

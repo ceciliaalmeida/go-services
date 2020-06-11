@@ -1,84 +1,38 @@
 import styled from "styled-components";
 
-import background from '../../assets/online_groceries.svg';
-
 export const Container = styled.div`
-  height: 100vh;
-  background: url(${background}) no-repeat 700px ;
-  background-size: 580px;
+width: 100%;
+max-width: 1180px;
+padding: 0 30px;
+margin: 32px auto;
 `;
 
 export const Content = styled.div`
-  width: 100%;
-  height: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 20px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-
-  main {
-    flex: 1;
-    max-width: 560px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  main h1 {
-    font-size: 54px;
-    color: var(--title-color);
-  }
-
-  main p {
-    font-size: 24px;
-    margin-top: 24px;
-    line-height: 38px;
-  }
-
-  main a {
-    width: 100%;
-    max-width: 360px;
-    height: 72px;
-    background: var(--primary-color);
-    border-radius: 8px;
-    text-decoration: none;
-
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-
-    margin-top: 40px;
-  }
-
-  main a span {
-    display: block;
-    background: rgba(0, 0, 0, 0.08);
-    width: 72px;
-    height: 72px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s;
-  }
-
-  main a span svg {
-    color: #fff;
-    width: 20px;
-    height: 20px;
-  }
-
-  main a strong {
-    flex: 1;
-    text-align: center;
-    color: #fff;
-  }
-
-  main a:hover {
-    filter: brightness(90%);
-  }
+width: 100%;
+max-width: 1180px;
+padding: 0 30px;
+margin: 32px auto;
+h1{
+  margin-bottom: 12px;
+}
+ul {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 34px;
+  list-style: none;
+}
+ul li {
+  background: #FFF;
+  padding: 24px;
+  border-radius: 8px;
+}
+ul li strong {
+  
+  color: #41414d;
+}
+ul li p {
+  color: #737380;
+  line-height: 21px;
+  font-size: 16px;
+}
 `;
