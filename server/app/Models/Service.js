@@ -9,7 +9,6 @@ class Service extends Model {
   images () {
     return this.hasMany('App/Models/Image')
   }
-
 }
 
 module.exports = Service

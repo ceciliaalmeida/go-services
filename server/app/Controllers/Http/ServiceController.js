@@ -83,7 +83,7 @@ class ServiceController {
       'description',
       'price',
       'city',
-      'uf',
+      'uf'
     ])
 
     service.merge(data)
@@ -101,13 +101,8 @@ class ServiceController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, auth, response }) {
+  async destroy ({ params, response }) {
     const service = await Service.findOrFail(params.id)
-
-    if (service.user_id !== auth.user.id) {
-      return response.status(401).send({ error: 'Not authorized' })
-    }
-
     await service.delete()
   }
 }

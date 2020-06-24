@@ -46,11 +46,9 @@ export const Content = styled.div`
     background: var(--primary-color);
     border-radius: 8px;
     text-decoration: none;
-
     display: flex;
     align-items: center;
     overflow: hidden;
-
     margin-top: 40px;
   }
 
@@ -59,7 +57,6 @@ export const Content = styled.div`
     background: rgba(0, 0, 0, 0.08);
     width: 72px;
     height: 72px;
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -76,6 +73,7 @@ export const Content = styled.div`
     flex: 1;
     text-align: center;
     color: #fff;
+    font-size: 18px;
   }
 
   main a:hover {

@@ -1,45 +1,78 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import api from "../../services/api";
-import { Container, Content } from "./styled";
+import { Link } from "react-router-dom";
+import { FiTrash2, FiEdit } from 'react-icons/fi';
 
+import api from '../../services/api';
+
+import { Container, ContentRight, ContentLeft } from "./styled";
 
 export default function Services() {
-const [services, setServices] = useState([]);
+  const [services, setServices] = useState([]);
 
-useEffect(() => {
-  api.get('services').then(response => {
-    setServices(response.data)
-  })
-}, []);
+  useEffect(() => {
+    api.get('services').then(response => {
+      setServices(response.data)
+    })
+  }, []);
 
-return(
-  <Container>
+  async function handleDeleteService(id) {
+    try {
+      await api.delete(`services/${id}`);
 
-  <Content>
-  <h1>Serviços Cadastrados</h1>
-  <ul>
+      setServices(services.filter(service => service.id !== id));
+    } catch (err) {
+      alert('Erro ao deletar serviço, tente novamente.');
+    }
+  }
 
-  {services.map(service =>(
-    <li key={service.id}>
-      <strong>Serviços</strong>
-      <p>{service.title}</p>
+  return (
+    <Container>
 
-      <strong>Descrição</strong>
-      <p>{service.description}</p>
+      <ContentLeft>
+        <strong>Filtre sua pesquisa</strong>
 
-      <strong>Valor</strong>
-      <p>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(service.price)}</p>
+        <select>
+          <option>Selecione UF</option>
+            <option>SE</option>
+        </select>
+      </ContentLeft>
 
-      <strong>Cidade</strong>
-      <p>{service.city}</p>
+      <ContentRight>
 
-      <strong>Seu Estado (UF)</strong>
-      <p>{service.uf}</p>
-      </li>
-    ))}
-  </ul>
-  </Content>
-  </Container>
+        <h1>Serviços Cadastrados</h1>
+        <>
+    
+        <ul>
+          {services.map(service => (
+            
+            <li key={service.id}>
+              <Link to={`/services/${service.id}`}>
+              <strong>Serviço:</strong>
+              <p>{service.title}</p>
+
+              <strong>Descrição</strong>
+              <p>{service.description}</p>
+
+              <strong>Valor</strong>
+              <p>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(service.price)}</p>
+
+              <strong>Cidade</strong>
+              <p>{service.city}</p>
+
+              <strong>UF</strong>
+              <p>{service.uf}</p>
+              </Link>
+              <button onClick={() => handleDeleteService(service.id)} type="button">
+                <FiTrash2 size={20} color="#152850" />
+              </button>
+
+            </li>
+            
+          ))}
+        </ul>
+            </>
+
+      </ContentRight>
+    </Container>
   );
 }

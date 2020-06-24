@@ -9,11 +9,9 @@ import { Container, Content } from "./styled";
 import signupImg from "../../assets/signup.svg";
 
 export default function SignUp() {
-  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [whatsapp, setWhatsapp] = useState("");
-  const [city, setCity] = useState("");
-  const [uf, setUf] = useState("");
+  const [password, setPassword] = useState("");
 
   const history = useHistory();
 
@@ -21,18 +19,14 @@ export default function SignUp() {
     e.preventDefault();
 
     const data = {
-      name,
+      username,
       email,
-      whatsapp,
-      city,
-      uf,
+      password,
     };
 
     try {
-      const response = await api.post("ongs", data);
-
-      alert(`Seu ID de acesso: ${response.data.id}`);
-
+      const response = await api.post("users", data);
+      alert(`${response.data.username}, seu cadastro foi realizado!`);
       history.push("/");
     } catch (err) {
       alert("Erro no cadastro, tente novamente.");
@@ -42,29 +36,27 @@ export default function SignUp() {
   return (
     <>
       <Container>
-        <img src={signupImg} alt="Finances" />
+        <img src={signupImg} alt="GoServices" />
         <Content>
           <h1>Cadastro</h1>
 
           <form onSubmit={handleRegister}>
-            <span>Escolha um nome de usuário</span>
             <input
               placeholder="Nome de usuário"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
-            <span>Digite seu email</span>
             <input
               type="email"
               placeholder="E-mail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <span>Digite sua senha</span>
             <input
+              type="password"
               placeholder="**********"
-              value={whatsapp}
-              onChange={(e) => setWhatsapp(e.target.value)}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
 
             <button className="button" type="submit">

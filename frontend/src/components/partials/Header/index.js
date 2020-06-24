@@ -1,7 +1,5 @@
-import React, { useState }  from "react";
+import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import { MdNotifications, MdPermIdentity } from "react-icons/md";
-
 import { Container, Profile } from "./styled";
 import logo from "../../../assets/logo.svg";
 import { isAuthenticated, logout } from "../../../services/auth";
@@ -27,26 +25,23 @@ export default function Header() {
         </div>
       </nav>
       <Profile>
-      {logged && (
-        <>
-          
-            <strong>Mayko Douglas</strong>
+        {logged && (
+          <>
+            <strong>Olá, Mayko</strong>
             <button onClick={handleSignOut} type="submit">
               Sair
             </button>
-          
-        </>
-      )}
-      {!logged && (
-        <>
-          <Link to="/signin">
-            <span>
-              <MdPermIdentity />
-            </span>
-            <strong>Entrar</strong>
-          </Link>
-        </>
-      )}
+          </>
+        )}
+        {!logged && (
+          <>
+            <div>
+              <NavLink to="/signin" activeClassName="selected">
+                Entrar
+          </NavLink>
+            </div>
+          </>
+        )}
       </Profile>
     </Container>
   );

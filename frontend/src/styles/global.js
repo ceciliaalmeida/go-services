@@ -24,12 +24,7 @@ export default createGlobalStyle`
   font: 400 18px Roboto, sans-serif;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1 {
   color: var(--title-color);
   font-family: Ubuntu;
 }
@@ -40,10 +35,30 @@ a {
     list-style: none;
   }
 
+  .button {
+    width: 100%;
+    height: 60px;
+    background: #152850;
+    border: 0;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 700;
+    margin-top: 16px;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 60px;
+    transition: filter 0.2s;
+  }
+
+  .button:hover {
+    filter: brightness(90%);
+  }
+
   .back-link {
     display: flex;
     align-items: center;
-    margin-top: 40px;
     color: #41414d;
     font-size: 18px;
     text-decoration: none;

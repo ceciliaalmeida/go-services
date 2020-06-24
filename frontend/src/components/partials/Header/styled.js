@@ -45,6 +45,7 @@ export const Profile = styled.aside`
   flex-direction: column;
   strong {
     margin-bottom: 5px;
+    font-size: 18px;
   }
   button {
     align-self: flex-end;
@@ -52,20 +53,24 @@ export const Profile = styled.aside`
     border: 0;
     color: #de3b3b;
   }
-  a {
-    border-radius: 8px;
-    text-decoration: none;
-
+  div {
     display: flex;
     align-items: center;
-    overflow: hidden;
-  }
-  a span svg {
-    width: 20px;
-    height: 20px;
-  }
-  a strong {
-    flex: 1;
-    text-align: center;
-  }
+    a {
+      color: #999;
+      font-weight: bold;
+      font-size: 18px;
+      transition: color 0.2s;
+      & + a {
+        margin-left: 20px;
+      }
+      &:hover {
+        color: #444;
+      }
+      &.selected {
+        color: #444;
+        font-weight: bold;
+      }
+    }
+  
 `;
